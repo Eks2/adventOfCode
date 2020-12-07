@@ -1,6 +1,5 @@
 package day7;
 
-import java.util.Collections;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -36,9 +35,10 @@ public class Day7 {
         return bag.getChildBagToQuantityMap()
                 .keySet()
                 .stream()
-                .flatMap(string -> Stream.concat(
+                .flatMap(string ->
+                        Stream.concat(
                         Stream.generate(() -> bagMap.get(string)).limit(bag.getChildBagToQuantityMap().get(string)),
-                        Stream.generate(() -> getChildBags(bagMap.get(string), bagMap)).limit(bag.getChildBagToQuantityMap().get(string)).flatMap(map -> map))
+                        getChildBags(bagMap.get(string), bagMap))
                 );
     }
 }

@@ -1,7 +1,6 @@
 package day7;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.Value;
 
 import java.util.Map;
