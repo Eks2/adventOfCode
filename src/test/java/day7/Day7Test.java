@@ -46,6 +46,6 @@ class Day7Test {
     void testInputStep2() throws IOException {
         Path filePath = Paths.get("src/test/java/day7/input");
         long actualCount = Day7.processStringStreamPart2("shiny gold", Files.lines(filePath));
-        assertThat(actualCount).isEqualTo(278L);
+        assertThat(actualCount).isEqualTo(45157L);
     }
 }
