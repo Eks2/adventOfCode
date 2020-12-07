@@ -1,5 +1,6 @@
 package day7;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -22,7 +23,7 @@ public class Day7 {
                 .collect(Collectors.toUnmodifiableMap(ColouredBag::getColour, Function.identity()));
 
         ColouredBag keyBag = bagMap.get(keyString);
-        return getNumberOfBags(keyBag, bagMap) - 1;
+        return getChildBags(keyBag, bagMap).count();
     }
 
     private static boolean containsBag(String keyString, ColouredBag keyBag, Map<String, ColouredBag> bagMap) {
@@ -35,16 +36,9 @@ public class Day7 {
         return bag.getChildBagToQuantityMap()
                 .keySet()
                 .stream()
-                .map(bagMap::get)
-                .flatMap(thisBag -> Stream.concat(Stream.of(thisBag), getChildBags(thisBag, bagMap)));
-    }
-
-    private static long getNumberOfBags(ColouredBag bag, Map<String, ColouredBag> bagMap) {
-        return bag.getChildBagToQuantityMap()
-                .keySet()
-                .stream()
-                .map(s -> getNumberOfBags(bagMap.get(s), bagMap)*bag.getChildBagToQuantityMap().get(s))
-                .mapToLong(value -> value)
-                .sum() + 1;
+                .flatMap(string -> Stream.concat(
+                        Stream.generate(() -> bagMap.get(string)).limit(bag.getChildBagToQuantityMap().get(string)),
+                        Stream.generate(() -> getChildBags(bagMap.get(string), bagMap)).limit(bag.getChildBagToQuantityMap().get(string)).flatMap(map -> map))
+                );
     }
 }
