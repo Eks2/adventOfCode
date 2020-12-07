@@ -35,7 +35,7 @@ public class ColouredBagNode {
         return childBagToQuantityMap.keySet()
                 .stream()
                 .map(bagNode -> childBagToQuantityMap.get(bagNode)*(bagNode.countBags() + 1))
-                .mapToLong(value -> value)
+                .mapToLong(Long::longValue)
                 .sum();
     }
 }
