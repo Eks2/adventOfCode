@@ -27,7 +27,6 @@ public class XmasNumberCollection {
 
     public Optional<Deque<XmasNumber>> getContiguousNumbers(long part1Sum) {
         Deque<XmasNumber> xmasNumberDeque = new ArrayDeque<>();
-        int myVariable = 0;
         return xmasNumberList.stream()
                 .peek(xmasNumberDeque::addFirst)
                 .flatMap(xmasNumber -> {
