@@ -24,8 +24,8 @@ public class Seats {
     }
 
     public void stepPart1() {
-        printTable();
-        System.out.println("");
+//        printTable();
+//        System.out.println("");
         oldPositionCharacterMap = positionCharacterMap;
         positionCharacterMap = positionCharacterMap.keySet()
                 .stream()
@@ -33,8 +33,8 @@ public class Seats {
     }
 
     public void stepPart2() {
-        printTable();
-        System.out.println("");
+//        printTable();
+//        System.out.println("");
         oldPositionCharacterMap = positionCharacterMap;
         positionCharacterMap = positionCharacterMap.keySet()
                 .stream()
@@ -62,15 +62,15 @@ public class Seats {
     }
 
     public char getNewStatusPart2(Position position) {
-        List<Position> adjacentSeats = getVisibleSeats(position);
-        long numberOfAdjacentOccupiedSeats = adjacentSeats.stream()
+        List<Position> visibleSeats = getVisibleSeats(position);
+        long numberOfVisibleOccupiedSeats = visibleSeats.stream()
                 .map(positionCharacterMap::get)
                 .filter(character -> character.equals('#'))
                 .count();
         Character positionStatus = positionCharacterMap.get(position);
-        if (positionStatus.equals('L') && numberOfAdjacentOccupiedSeats == 0) {
+        if (positionStatus.equals('L') && numberOfVisibleOccupiedSeats == 0) {
             return '#';
-        } else if (positionStatus.equals('#') && numberOfAdjacentOccupiedSeats >= 5) {
+        } else if (positionStatus.equals('#') && numberOfVisibleOccupiedSeats >= 5) {
             return 'L';
         } else {
             return positionStatus;
@@ -94,7 +94,7 @@ public class Seats {
         return getAdjacentPositionStream(position)
                 .map(pos -> new Position(pos.getX() - position.getX(), pos.getY() - position.getY()))
                 .flatMap(direction -> Stream.iterate(
-                            position,
+                            position.add(direction),
                             pos -> pos.isInBounds(width, height),
                             pos -> pos.add(direction))
                         .filter(pos -> !positionCharacterMap.get(pos).equals('.'))

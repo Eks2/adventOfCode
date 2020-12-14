@@ -36,7 +36,7 @@ class Day11Test {
     @Test
     void testInputStep2() throws IOException {
         long actualCount = Day11.processStringStreamPart2(Files.lines(INPUT_FILE_PATH));
-        assertThat(actualCount).isEqualTo(3454189699072L);
+        assertThat(actualCount).isEqualTo(2149L);
     }
 
 }
