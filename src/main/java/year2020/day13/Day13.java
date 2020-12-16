@@ -39,28 +39,32 @@ public class Day13 {
                 .boxed()
                 .collect(Collectors.toMap(i -> Long.parseLong(split[i]), Function.identity()));
 
-        long biggestNumber = numberMap.keySet()
-                .stream()
-                .mapToLong(Long::valueOf)
-                .max()
-                .getAsLong();
-        long currentNumber = (long) numberMap.get(biggestNumber);
-        numberMap.remove(biggestNumber);
-        while (true) {
-            boolean mapSatisfied = isMapSatisfied(numberMap, currentNumber);
-            if (mapSatisfied) {
-                return currentNumber;
-            }
-            currentNumber += biggestNumber;
-        }
+        List<Long> longs = IntStream.range(0, split.length)
+                .filter(i -> !split[i].equals("x"))
+                .mapToObj(value -> Long.parseLong(split[value]))
+                .collect(Collectors.toUnmodifiableList());
 
+        long multiplier = longs.get(0);
+        long startingNumber = numberMap.get(multiplier);
+
+        for (int i=1; i<longs.size(); i++) {
+            long newPrimeNumber = longs.get(i);
+            long offset = numberMap.get(newPrimeNumber);
+            startingNumber = findNumber(startingNumber, multiplier, newPrimeNumber, offset);
+            multiplier = multiplier*newPrimeNumber;
+        }
+        return startingNumber;
     }
 
-    private static boolean isMapSatisfied(Map<Long, Integer> integerMap, long currentNumber) {
-        return integerMap.keySet()
-                .stream()
-                .map(i -> (currentNumber - integerMap.get(i)) % i)
-                .allMatch(aLong -> aLong == 0);
+    private static long findNumber(long startingNumber, long multiplier, long newPrimeNumber, long offset) {
+        boolean thing = true;
+        while (thing) {
+            startingNumber += multiplier;
+            if (((startingNumber + offset) % newPrimeNumber) == 0) {
+                thing = false;
+            }
+        }
+        return startingNumber;
     }
 
 }
