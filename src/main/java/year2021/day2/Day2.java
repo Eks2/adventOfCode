@@ -18,6 +18,7 @@ public class Day2 {
 
 record Instruction(String word, int number) {
     static Pattern PATTERN = Pattern.compile("^(\\w+) (\\d+)");
+
     static Instruction buildFrom(String inputLine) {
         Matcher matcher = PATTERN.matcher(inputLine);
         matcher.find();
