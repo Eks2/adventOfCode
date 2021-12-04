@@ -17,25 +17,25 @@ class Day3Test {
 
     @Test
     void testExampleStep1() throws IOException {
-        long actualCount = Day3.processStringStreamPart1(Files.lines(EXAMPLE_FILE_PATH));
-        assertThat(actualCount).isEqualTo(150L);
+        long actualCount = Day3.processStringStreamPart1(Files.lines(EXAMPLE_FILE_PATH), 5);
+        assertThat(actualCount).isEqualTo(198L);
     }
 
     @Test
     void testInputStep1() throws IOException {
-        long actualCount = Day3.processStringStreamPart1(Files.lines(INPUT_FILE_PATH));
-        assertThat(actualCount).isEqualTo(1893605L);
+        long actualCount = Day3.processStringStreamPart1(Files.lines(INPUT_FILE_PATH), 12);
+        assertThat(actualCount).isEqualTo(2003336L);
     }
 
     @Test
     void testExampleStep2() throws IOException {
-        long actualCount = Day3.processStringStreamPart2(Files.lines(EXAMPLE_FILE_PATH));
+        long actualCount = Day3.processStringStreamPart2(Files.lines(EXAMPLE_FILE_PATH), 5);
         assertThat(actualCount).isEqualTo(900L);
     }
 
     @Test
     void testInputStep2() throws IOException {
-        long actualCount = Day3.processStringStreamPart2(Files.lines(INPUT_FILE_PATH));
+        long actualCount = Day3.processStringStreamPart2(Files.lines(INPUT_FILE_PATH), 12);
         assertThat(actualCount).isEqualTo(2120734350L);
     }
 }
