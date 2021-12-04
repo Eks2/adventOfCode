@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 public class Day13 {
     public static long processStringStreamPart1(Stream<String> lines) {
-        List<String> strings = lines.collect(Collectors.toUnmodifiableList());
+        List<String> strings = lines.toList();
         long departTime = Long.parseLong(strings.get(0));
         Pattern p = Pattern.compile("\\d+");
         Matcher matcher = p.matcher(strings.get(1));
