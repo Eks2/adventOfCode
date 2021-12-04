@@ -46,7 +46,7 @@ record Card(Map<Integer, Position> squares) {
     Optional<Result> problem1(List<Integer> values) {
         return IntStream.range(0, values.size())
                 .filter(i -> isBingo(getCompoundIntegers(values, i)))
-                .mapToObj(i -> new Result(getSumOfUnmatchedSquares(getCompoundIntegers(values, i).stream().collect(Collectors.toUnmodifiableSet())) * getCompoundIntegers(values, i).get(i-1), i))
+                .mapToObj(i -> new Result(getSumOfUnmatchedSquares(getCompoundIntegers(values, i).stream().collect(Collectors.toUnmodifiableSet())) * values.get(i-1), i))
                 .findFirst();
     }
 
@@ -74,20 +74,10 @@ record Card(Map<Integer, Position> squares) {
     }
 
     private Set<Set<Position>> getPotentialBingoLines(Position position) {
-//        Set<Position> diagonal1 = Set.of(new Position(0, 0), new Position(1, 1), new Position(2, 2), new Position(3, 3), new Position(4, 4));
-//        Set<Position> diagonal2 = Set.of(new Position(0, 4), new Position(1, 3), new Position(2, 2), new Position(3, 1), new Position(4, 0));
 
         Set<Set<Position>> sets = new HashSet<>();
         sets.add(IntStream.range(0, 5).mapToObj(i -> new Position(i, position.y())).collect(Collectors.toUnmodifiableSet()));
         sets.add(IntStream.range(0, 5).mapToObj(i -> new Position(position.x(), i)).collect(Collectors.toUnmodifiableSet()));
-
-//        if (diagonal1.contains(position)) {
-//            sets.add(diagonal1);
-//        }
-//
-//        if (diagonal2.contains(position)) {
-//            sets.add(diagonal2);
-//        }
 
         return sets;
     }
